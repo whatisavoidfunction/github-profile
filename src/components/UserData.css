@@ -1,0 +1,52 @@
+.mainUserDataContainer {
+  background-color: rgb(19, 25, 31);
+  text-align: center;
+  color: white;
+}
+
+.userPicture {
+  padding-top: 5rem;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+h2 a {
+  font-size: 2rem;
+  margin: 1rem 0;
+  color: teal;
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+.userPicture > img {
+  width: 150px;
+  height: 150px;
+  border-radius: 25%;
+}
+
+.userStatistics {
+  display: flex;
+  padding: 2rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+.statBox {
+  margin: 0 auto;
+  padding: 1rem;
+  background-color: rgb(35, 35, 36);
+}
+.statBoxNum {
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+.statBoxLabel {
+}
+.statBox span {
+  display: block;
+}

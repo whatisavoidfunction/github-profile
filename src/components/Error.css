@@ -1,0 +1,12 @@
+.mainErrorContainer {
+  height: 100vh;
+  color: white;
+  fill: currentColor;
+  min-height: 300px;
+  background-color: rgb(19, 25, 31);
+  text-align: center;
+  font-size: 2rem;
+}
+.mainErrorContainer > div {
+  padding-top: 33vh;
+}
