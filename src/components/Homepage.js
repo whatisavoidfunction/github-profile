@@ -1,44 +1,20 @@
 import React, { useState } from "react";
 import "./Homepage.css";
 import Octicon, { Octoface } from "@primer/octicons-react";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 
-const userNotFoundError = "User was not found in GitHub database";
+import { retrieveBasicUserData as retrieveBasicUserDataAPI } from "./APIs/APIList";
 const usernameBlankError = "Username entered is not valid";
-const apiGeneralError = "Something went wrong. Check back later.";
 const pagePathOnValidUsername = "/user?username=";
 
 function Homepage(props) {
+  const history = useHistory();
   const [errorMessage, setErrorMessage] = useState({
     exists: false,
     type: null,
   });
-  const [searchResult, setSearchResult] = useState(null);
 
-  const retrieveBasicUserData = (usernameFieldValue) => {
-    fetch(`https://api.github.com/users/${usernameFieldValue}`)
-      .then((response) => {
-        if (response.status === 404) {
-          return setErrorMessage({
-            exists: true,
-            type: userNotFoundError,
-          });
-        } else if (response.status === 200) {
-          return response.json();
-        } else if (response.status !== 200 && response.status !== 404) {
-          return setErrorMessage({
-            exists: true,
-            type: apiGeneralError,
-          });
-        }
-        return null;
-      })
-      .then((json) => (json !== null ? props.setUserData(json) : null))
-      .catch((error) => {
-        setErrorMessage({ exists: true, type: apiGeneralError });
-      });
-  };
-  // Function called when form is submitted
+  // this function is called when form is submitted-------------------------------------------
   function formSubmitted(e) {
     e.preventDefault();
     let usernameElement = document.getElementById("usernameInput");
@@ -47,7 +23,7 @@ function Homepage(props) {
         ? null
         : usernameElement.value.trim();
 
-    // get username value entered by user
+    // Show blank username error if value is null--------------
     if (usernameFieldValue === null) {
       usernameElement.classList.add("shakeAnimation");
       setErrorMessage({ exists: true, type: usernameBlankError });
@@ -56,7 +32,28 @@ function Homepage(props) {
       }, 300);
     } else {
       // do something with the username
-      retrieveBasicUserData(usernameFieldValue);
+      let responseObject = retrieveBasicUserDataAPI(usernameFieldValue);
+      console.log(responseObject);
+      console.log("AFTER API CALL" + JSON.stringify(responseObject));
+      console.log("before timeout function");
+
+      setTimeout(function () {
+        console.log("timeout ended");
+        console.log("AFTER API CALL" + JSON.stringify(responseObject));
+      }, 1000);
+
+      console.log("after timeout function");
+
+      // setErrorMessage({
+      //   exists: responseObject.error.exists,
+      //   type: responseObject.error.type,
+      // });
+
+      // // trigger path change if the
+      // if (responseObject.data) {
+      //   props.setUserData(responseObject.data);
+      //   history.push(pagePathOnValidUsername + responseObject.data.login);
+      // }
     }
   }
   return (

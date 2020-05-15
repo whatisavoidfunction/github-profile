@@ -10,6 +10,7 @@ function Homepage(props) {
     exists: false,
     type: null,
   });
+  const [userData, setUserData] = useState(null);
 
   const retrieveBasicUserData = (usernameFieldValue) => {
     fetch(`https://api.github.com/users/${usernameFieldValue}`)
@@ -29,7 +30,7 @@ function Homepage(props) {
         }
         return null;
       })
-      .then((json) => (json !== null ? props.setUserData(json) : null))
+      .then((json) => (json !== null ? setUserData(json) : null))
       .catch((error) => {
         setErrorMessage({ exists: true, type: apiGeneralError });
       });
@@ -39,9 +40,11 @@ function Homepage(props) {
     // check if userdata has value but userData is null
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get("username");
-    const userData = props.userData;
 
-    if (username && !username.trim() === "" && userData === null) {
+    // set incoming prop data to set state hook. Otherwise call API to retrieve data
+    if (props.userData) {
+      setUserData(props.userData);
+    } else if (username && !username.trim() === "" && userData === null) {
       // if it is then search for data.
       retrieveBasicUserData();
     }
