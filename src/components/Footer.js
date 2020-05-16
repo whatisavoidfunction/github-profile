@@ -12,7 +12,12 @@ function Homepage() {
           rel="noopener noreferrer"
         >
           Vishal Kohli
+        </a>{" "}
+        with{" "}
+        <a target="_blank" href="https://reactjs.org" rel="noopener noreferrer">
+          React
         </a>
+        .
       </p>
     </div>
   );
