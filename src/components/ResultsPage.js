@@ -12,7 +12,7 @@ function Homepage(props) {
   const [username, setUserName] = useState(null);
   useEffect(() => {
     // Either set the data or make API call to get the data.
-
+    //test
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get("username");
 
