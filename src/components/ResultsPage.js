@@ -1,57 +1,57 @@
 import React, { useState, useEffect } from "react";
 import "./ResultsPage.css";
-const userNotFoundError = "User was not found in GitHub database";
-// const usernameBlankError = "Username entered is blank";
-const apiGeneralError = "Something went wrong. Check back later.";
-// const pagePathOnValidUsername = "/user?username=";
-
+import { retrieveBasicUserData as retrieveBasicUserDataAPI } from "./APIs/APIList";
+import Error from "../components/Error";
 function Homepage(props) {
   const [errorMessage, setErrorMessage] = useState({
     exists: false,
     type: null,
   });
   const [userData, setUserData] = useState(null);
-
-  const retrieveBasicUserData = (usernameFieldValue) => {
-    fetch(`https://api.github.com/users/${usernameFieldValue}`)
-      .then((response) => {
-        if (response.status === 404) {
-          return setErrorMessage({
-            exists: true,
-            type: userNotFoundError,
-          });
-        } else if (response.status === 200) {
-          return response.json();
-        } else if (response.status !== 200 && response.status !== 404) {
-          return setErrorMessage({
-            exists: true,
-            type: apiGeneralError,
-          });
-        }
-        return null;
-      })
-      .then((json) => (json !== null ? setUserData(json) : null))
-      .catch((error) => {
-        setErrorMessage({ exists: true, type: apiGeneralError });
-      });
-  };
-
+  const [loading, setLoading] = useState(null);
+  const [username, setUserName] = useState(null);
   useEffect(() => {
-    // check if userdata has value but userData is null
+    // Either set the data or make API call to get the data.
+
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get("username");
 
-    // set incoming prop data to set state hook. Otherwise call API to retrieve data
     if (props.userData) {
       setUserData(props.userData);
-    } else if (username && !username.trim() === "" && userData === null) {
+    } else if (props.userData === null) {
       // if it is then search for data.
-      retrieveBasicUserData();
+
+      setUserName(username);
+      (async () => {
+        // set loading signal while API data is retrieved
+        setLoading(true);
+        let responseObject = await retrieveBasicUserDataAPI(username);
+
+        if (responseObject.data) {
+        } else {
+          setErrorMessage({
+            exists: responseObject.error.exists,
+            type: responseObject.error.type,
+          });
+        }
+        // reset loading signal to remove loading message
+        setLoading(false);
+        setErrorMessage({
+          exists: true,
+          type: responseObject.error.type,
+        });
+      })();
     }
     // if error then display error
   }, []);
 
-  return <div className="Homepage"></div>;
+  return (
+    <div className="MainResultPageContainer">
+      {errorMessage.exists && <h1 className="LoadingText">Loading ...</h1>}
+      {loading && <h1 className="LoadingText">Loading ...</h1>}
+      {!loading && <div></div>}
+    </div>
+  );
 }
 
 export default Homepage;

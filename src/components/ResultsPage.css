@@ -1,0 +1,11 @@
+.MainResultPageContainer {
+  background-color: rgb(19, 25, 31);
+  height: 100vh;
+}
+.LoadingText {
+  text-align: center;
+  margin: 0;
+  font-size: 3rem;
+  color: white;
+  padding-top: 45vh;
+}

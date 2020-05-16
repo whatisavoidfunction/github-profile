@@ -19,10 +19,10 @@ form * {
   padding: 0.8rem;
   text-align: center;
 }
-form > label {
-  font-size: 2rem;
+form label {
+  font-size: 1.8rem;
 }
-form > input {
+form input {
   background-color: rgb(26, 44, 63);
   color: white;
   border-width: 0px;
@@ -30,14 +30,18 @@ form > input {
   font-size: 2rem;
   border-radius: 10px;
 }
-form > input:focus {
+form input:focus {
   outline: none;
 }
+
 .shakeAnimation {
   animation: shake 0.5s;
 }
 .errorMessage {
   color: red;
+}
+.hintText {
+  color: lightgrey;
 }
 
 @keyframes shake {

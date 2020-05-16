@@ -1,6 +1,6 @@
 import errorList from "../Static-codes/ErrorList";
-export const retrieveBasicUserData = (usernameFieldValue) => {
-  // Response object mapping
+
+export const retrieveBasicUserData = async (usernameFieldValue) => {
   const responseObject = {
     data: null,
     error: {
@@ -8,25 +8,20 @@ export const retrieveBasicUserData = (usernameFieldValue) => {
       type: null,
     },
   };
-  fetch(`https://api.github.com/users/${usernameFieldValue}`)
-    .then((response) => {
-      if (response.status === 404) {
-        responseObject.error.exists = true;
-        responseObject.error.type = errorList.userNotFoundError;
-        return responseObject;
-      } else if (response.status === 200) {
-        responseObject.data = response.json();
-      } else if (response.status !== 200 && response.status !== 404) {
-        responseObject.error.exists = true;
-        responseObject.error.type = errorList.apiGeneralError;
-      }
-      return responseObject;
-    })
-    .catch((error) => {
-      responseObject.error.exists = true;
-      responseObject.error.type = errorList.apiGeneralError;
-      responseObject.data = null;
-    });
-  // return responseObject;
-  return responseObject.error;
+
+  const response = await fetch(
+    `https://api.github.com/users/${usernameFieldValue}`
+  );
+  const responseJSON = await response.json();
+
+  if (response.status === 404) {
+    responseObject.error.exists = true;
+    responseObject.error.type = errorList.userNotFoundError;
+  } else if (response.status === 200) {
+    responseObject.data = responseJSON;
+  } else if (response.status !== 200 && response.status !== 404) {
+    responseObject.error.exists = true;
+    responseObject.error.type = errorList.apiGeneralError;
+  }
+  return responseObject;
 };
