@@ -7,12 +7,17 @@ function Error(props) {
     <div className="mainErrorContainer">
       <div>
         <Octicon icon={Octoface} verticalAlign="middle" size="large" />
-        {props.error.exists && props.error.value === 404 && (
+        <p>OOPS! Something web wrong. </p>
+        <p className="RedirectMessage">
+          Redirecting you to homepage in 3 seconds.{" "}
+        </p>
+
+        {/* {props.error.exists && props.error.value === 404 && (
           <p>Oops! User with username: {props.username} was not found.</p>
         )}
         {props.error.exists && props.error.value !== 404 && (
           <p>Something went wrong.</p>
-        )}
+        )} */}
       </div>
     </div>
   );

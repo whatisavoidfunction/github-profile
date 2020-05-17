@@ -10,3 +10,7 @@
 .mainErrorContainer > div {
   padding-top: 33vh;
 }
+.RedirectMessage {
+  font-size: 1.5rem;
+  color: grey;
+}
