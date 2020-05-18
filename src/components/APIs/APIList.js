@@ -1,4 +1,4 @@
-import errorList from "../Static-codes/ErrorList";
+import errorList from "../Config/ErrorList";
 
 export const retrieveBasicUserData = async (usernameFieldValue) => {
   const responseObject = {

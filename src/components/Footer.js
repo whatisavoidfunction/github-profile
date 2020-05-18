@@ -16,6 +16,14 @@ function Homepage() {
         with{" "}
         <a target="_blank" href="https://reactjs.org" rel="noopener noreferrer">
           React
+        </a>{" "}
+        and{" "}
+        <a
+          target="_blank"
+          href="https://www.chartjs.org"
+          rel="noopener noreferrer"
+        >
+          Chart.js
         </a>
         .
       </p>

@@ -1,5 +1,7 @@
 .MainResultPageContainer {
   background-color: rgb(19, 25, 31);
+  /* min-width: 350px; */
+  /* background-color: white; */
   height: 100vh;
 }
 .LoadingText {

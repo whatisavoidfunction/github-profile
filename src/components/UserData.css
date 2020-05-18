@@ -1,5 +1,4 @@
 .mainUserDataContainer {
-  background-color: rgb(19, 25, 31);
   text-align: center;
   color: white;
 }
@@ -9,7 +8,7 @@
 }
 
 h1 {
-  font-size: 3rem;
+  font-size: 2.2rem;
   margin-top: 1rem;
   margin-bottom: 0;
 }
@@ -28,25 +27,26 @@ p {
   height: 150px;
   border-radius: 25%;
 }
-
 .userStatistics {
   display: flex;
-  padding: 2rem;
-  width: 100%;
-  max-width: 400px;
+  justify-content: space-between;
+  max-width: 350px;
   margin: 0 auto;
+  padding-top: 1rem;
 }
 .statBox {
-  margin: 0 auto;
-  padding: 1rem;
+  border-radius: 15px;
   background-color: rgb(35, 35, 36);
+  padding: 0.5rem;
+  min-width: 90px;
+}
+.statBox * {
+  display: block;
 }
 .statBoxNum {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
 }
 .statBoxLabel {
-}
-.statBox span {
-  display: block;
+  padding-top: 0.7rem;
+  font-size: 0.8rem;
 }
