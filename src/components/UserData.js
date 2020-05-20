@@ -10,6 +10,8 @@ function UserData({ userData }) {
           <img src={userData.avatar_url} alt="avatar" />
         </div>
       )}
+
+      {/* Profile name */}
       {userData.name && <h1>{userData.name}</h1>}
 
       {/* Login */}

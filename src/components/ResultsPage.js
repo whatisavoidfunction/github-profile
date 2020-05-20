@@ -24,6 +24,7 @@ function Homepage(props) {
     type: null,
   });
 
+  // Loop over all the repos and calculate how often a language is used.
   const computeLanguageData = (url) => {
     fetch(url)
       .then((data) => data.json())
@@ -35,6 +36,8 @@ function Homepage(props) {
         let languageDataMap = new Map();
         for (let i = 0; i < data.length; i++) {
           let language = data[i].language;
+
+          // Language cannot be null / empty
           if (
             language !== null &&
             language !== undefined &&

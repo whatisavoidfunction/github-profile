@@ -9,8 +9,14 @@
 
 h1 {
   font-size: 2.2rem;
-  margin-top: 1rem;
-  margin-bottom: 0;
+  padding-top: 1rem;
+  width: 95%;
+  margin: 0 auto;
+}
+h2 {
+  padding-top: 1rem;
+  width: 95%;
+  margin: 0 auto;
 }
 h2 a {
   font-size: 2rem;
@@ -19,23 +25,25 @@ h2 a {
 }
 
 p {
+  padding-top: 1rem;
   font-size: 1.2rem;
 }
 
 .userPicture > img {
   width: 150px;
   height: 150px;
-  border-radius: 25%;
+  border-radius: 10%;
 }
 .userStatistics {
   display: flex;
   justify-content: space-between;
   max-width: 350px;
   margin: 0 auto;
-  padding-top: 1rem;
+  padding-top: 1.5rem;
+  width: 95%;
 }
 .statBox {
-  border-radius: 15px;
+  border-radius: 5%;
   background-color: rgb(35, 35, 36);
   padding: 0.5rem;
   min-width: 90px;
@@ -44,7 +52,7 @@ p {
   display: block;
 }
 .statBoxNum {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
 }
 .statBoxLabel {
   padding-top: 0.7rem;
