@@ -1,7 +1,5 @@
-const errorList = {
-  // userNotFoundError: "User was not found in GitHub database",
-  apiGeneralError: "Something went wrong. Check back later.",
-  userNotFoundError: "User was not found in database",
+export const apiErrorList = {
+  403: "Not allowed to access request resource",
+  404: "User was not found in database",
+  0: "Something went wrong. Check back later",
 };
-
-export default errorList;

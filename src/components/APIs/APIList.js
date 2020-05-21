@@ -1,27 +1,31 @@
-import errorList from "../Config/ErrorList";
+import { apiErrorList } from "../Config/ErrorList";
 
-export const retrieveBasicUserData = async (usernameFieldValue) => {
+export const retrieveBasicUserData = (usernameFieldValue, setStateFunction) => {
   const responseObject = {
     data: null,
-    error: {
-      exists: false,
-      type: null,
-    },
+    error: null,
   };
 
-  const response = await fetch(
-    `https://api.github.com/users/${usernameFieldValue}`
-  );
-  const responseJSON = await response.json();
-
-  if (response.status === 404) {
-    responseObject.error.exists = true;
-    responseObject.error.type = errorList.userNotFoundError;
-  } else if (response.status === 200) {
-    responseObject.data = responseJSON;
-  } else if (response.status !== 200 && response.status !== 404) {
-    responseObject.error.exists = true;
-    responseObject.error.type = errorList.apiGeneralError;
-  }
-  return responseObject;
+  fetch(`https://api.github.com/users/${usernameFieldValue}`)
+    .then((response) => {
+      // control for 404 and 403 errors
+      if (response.status in apiErrorList) {
+        responseObject.error = apiErrorList[response.status];
+        return responseObject;
+      }
+      // default error if response not ok and not in error list
+      else if (
+        response.status !== response.ok &&
+        !response.status in apiErrorList
+      ) {
+        responseObject.error = apiErrorList[0];
+        return responseObject;
+      }
+      return response.json();
+    })
+    .then((json) => setStateFunction(json))
+    .catch(() => {
+      responseObject.error = apiErrorList[0];
+      return responseObject;
+    });
 };

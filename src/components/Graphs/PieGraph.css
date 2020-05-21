@@ -4,11 +4,12 @@
   height: 320px;
   border-radius: 5%;
 }
-.pieChartContainer header {
+.pieChartContainer > header {
   margin-left: 1rem;
   font-size: 2rem;
   margin-bottom: 3rem;
 }
-.pieChartContainer p {
+.pieChartContainer > p {
   text-align: end;
+  font-size: 1rem;
 }

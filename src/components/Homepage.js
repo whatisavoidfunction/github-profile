@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Homepage.css";
 import Octicon, { Octoface } from "@primer/octicons-react";
 import { withRouter, useHistory } from "react-router-dom";
@@ -10,48 +10,55 @@ const usernameHint = "Try 'Google'";
 
 function Homepage(props) {
   const history = useHistory();
-  const [errorMessage, setErrorMessage] = useState({
-    exists: false,
-    type: null,
-  });
   const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState({ data: null, error: null });
+
+  useEffect(() => {
+    if (userData.data !== null || userData.error !== null) {
+      console.log(userData);
+    }
+  });
 
   // this function is called when form is submitted-------------------------------------------
   function formSubmitted(e) {
     e.preventDefault();
     let usernameElement = document.getElementById("usernameInput");
-    let usernameFieldValue =
-      usernameElement.value === null || usernameElement.value.trim() === ""
-        ? null
-        : usernameElement.value.trim();
+    retrieveBasicUserDataAPI(usernameElement.value.trim(), setUserData);
+    // e.preventDefault();
+    // let usernameElement = document.getElementById("usernameInput");
+    // let usernameFieldValue =
+    //   usernameElement.value === null || usernameElement.value.trim() === ""
+    //     ? null
+    //     : usernameElement.value.trim();
 
-    // Show blank username error if value is null--------------
-    if (usernameFieldValue === null) {
-      usernameElement.value = "";
-      usernameElement.classList.add("shakeAnimation");
-      setErrorMessage({ exists: true, type: usernameBlankError });
-      setTimeout(function () {
-        usernameElement.classList.remove("shakeAnimation");
-      }, 300);
-    } else {
-      (async () => {
-        // set loading signal while API data is retrieved
-        setLoading(true);
-        let responseObject = await retrieveBasicUserDataAPI(usernameFieldValue);
+    // // Show blank username error if value is null--------------
+    // if (usernameFieldValue === null) {
+    //   usernameElement.value = "";
+    //   usernameElement.classList.add("shakeAnimation");
+    //   setErrorMessage({ exists: true, type: usernameBlankError });
+    //   setTimeout(function () {
+    //     usernameElement.classList.remove("shakeAnimation");
+    //   }, 300);
+    // } else {
+    //   (async () => {
+    //     // set loading signal while API data is retrieved
+    //     setLoading(true);
 
-        if (responseObject.data) {
-          props.setUserData(responseObject.data);
-          history.push(pagePathOnValidUsername + usernameFieldValue);
-        } else {
-          setErrorMessage({
-            exists: responseObject.error.exists,
-            type: responseObject.error.type,
-          });
-        }
-        // reset loading signal to remove loading message
-        setLoading(false);
-      })();
-    }
+    //     let responseObject = await retrieveBasicUserDataAPI(usernameFieldValue);
+
+    //     if (responseObject.data) {
+    //       props.setUserData(responseObject.data);
+    //       history.push(pagePathOnValidUsername + usernameFieldValue);
+    //     } else {
+    //       setErrorMessage({
+    //         exists: responseObject.error.exists,
+    //         type: responseObject.error.type,
+    //       });
+    //     }
+    //     // reset loading signal to remove loading message
+    //     setLoading(false);
+    //   })();
+    // }
   }
   return (
     <div className="mainHomepageContainer">
@@ -62,16 +69,16 @@ function Homepage(props) {
           id="usernameInput"
           type="text"
           autocomplete="off"
-          onChange={() => setErrorMessage({ exists: false, type: null })}
+          // onChange={() => setErrorMessage({ exists: false, type: null })}
         />
 
-        {errorMessage.exists && (
+        {/* {error!==null && (
           <p className="errorMessage">{errorMessage.type}</p>
         )}
-        {!errorMessage.exists && !loading && (
+        {error==null && !loading && (
           <p className="hintText">{usernameHint}</p>
         )}
-        {loading && <p className="hintText">Loading ...</p>}
+        {loading && <p className="hintText">Loading ...</p>} */}
       </form>
     </div>
   );
