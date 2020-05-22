@@ -2,12 +2,12 @@ import React from "react";
 import "./Error.css";
 import Octicon, { Octoface } from "@primer/octicons-react";
 
-function Error(props) {
+function Error({ error }) {
   return (
     <div className="mainErrorContainer">
       <div>
         <Octicon icon={Octoface} verticalAlign="middle" size="large" />
-        <p>OOPS! Something web wrong. </p>
+        <p>{error}</p>
         <p className="RedirectMessage">
           Redirecting you to homepage in 3 seconds.{" "}
         </p>

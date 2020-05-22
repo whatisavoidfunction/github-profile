@@ -2,64 +2,82 @@ import React, { useState, useEffect } from "react";
 import "./Homepage.css";
 import Octicon, { Octoface } from "@primer/octicons-react";
 import { withRouter, useHistory } from "react-router-dom";
-
-import { retrieveBasicUserData as retrieveBasicUserDataAPI } from "./APIs/APIList";
-const usernameBlankError = "Username entered is not valid";
+import { apiErrorList, errorList } from "./Config/ErrorList";
 const pagePathOnValidUsername = "/user?username=";
 const usernameHint = "Try 'Google'";
 
 function Homepage(props) {
   const history = useHistory();
-  const [loading, setLoading] = useState(false);
-  const [userData, setUserData] = useState({ data: null, error: null });
+  const [userData, setUserData] = useState({
+    data: null,
+    error: null,
+  });
 
+  //If data available then route page appropriately
   useEffect(() => {
-    if (userData.data !== null || userData.error !== null) {
-      console.log(userData);
+    if (userData.data != null) {
+      props.setUserData(userData);
+      history.push(pagePathOnValidUsername + userData.data.login);
     }
   });
 
+  const retrieveBasicUserData = (usernameFieldValue) => {
+    let responseObject = {
+      data: null,
+      error: null,
+    };
+
+    fetch(`https://api.github.com/users/${usernameFieldValue}`)
+      .then((response) => {
+        return response.json().then((data) => {
+          if (response.status === 200) {
+            responseObject.data = data;
+          }
+          // 404 and 403 errors
+          else if (response.status in apiErrorList) {
+            responseObject.error = apiErrorList[response.status];
+          }
+          // default error if response not ok and not in error list
+          else {
+            responseObject.error = errorList.GENERAL_ERROR;
+          }
+        });
+      })
+      .then(() => {
+        setUserData(responseObject);
+      })
+      .catch(() => {
+        responseObject.error = apiErrorList[0];
+        setUserData(responseObject);
+      });
+  };
+
+  // Function deals with handling of empty username response
+  const handleEmptyUsername = (usernameElement) => {
+    // Reset input value, animate and set error
+    usernameElement.value = "";
+    usernameElement.classList.add("shakeAnimation");
+    setUserData({
+      data: null,
+      error: errorList.USERNAME_EMPTY_ERROR,
+    });
+    setTimeout(function () {
+      usernameElement.classList.remove("shakeAnimation");
+    }, 300);
+  };
+
   // this function is called when form is submitted-------------------------------------------
-  function formSubmitted(e) {
+  const formSubmitted = (e) => {
     e.preventDefault();
     let usernameElement = document.getElementById("usernameInput");
-    retrieveBasicUserDataAPI(usernameElement.value.trim(), setUserData);
-    // e.preventDefault();
-    // let usernameElement = document.getElementById("usernameInput");
-    // let usernameFieldValue =
-    //   usernameElement.value === null || usernameElement.value.trim() === ""
-    //     ? null
-    //     : usernameElement.value.trim();
+    // condition to either call api or set erro
+    if (usernameElement.value === null || usernameElement.value.trim() === "") {
+      handleEmptyUsername(usernameElement);
+    } else {
+      retrieveBasicUserData(usernameElement.value.trim());
+    }
+  };
 
-    // // Show blank username error if value is null--------------
-    // if (usernameFieldValue === null) {
-    //   usernameElement.value = "";
-    //   usernameElement.classList.add("shakeAnimation");
-    //   setErrorMessage({ exists: true, type: usernameBlankError });
-    //   setTimeout(function () {
-    //     usernameElement.classList.remove("shakeAnimation");
-    //   }, 300);
-    // } else {
-    //   (async () => {
-    //     // set loading signal while API data is retrieved
-    //     setLoading(true);
-
-    //     let responseObject = await retrieveBasicUserDataAPI(usernameFieldValue);
-
-    //     if (responseObject.data) {
-    //       props.setUserData(responseObject.data);
-    //       history.push(pagePathOnValidUsername + usernameFieldValue);
-    //     } else {
-    //       setErrorMessage({
-    //         exists: responseObject.error.exists,
-    //         type: responseObject.error.type,
-    //       });
-    //     }
-    //     // reset loading signal to remove loading message
-    //     setLoading(false);
-    //   })();
-    // }
-  }
   return (
     <div className="mainHomepageContainer">
       <form onSubmit={formSubmitted}>
@@ -68,17 +86,13 @@ function Homepage(props) {
         <input
           id="usernameInput"
           type="text"
-          autocomplete="off"
-          // onChange={() => setErrorMessage({ exists: false, type: null })}
+          autoComplete="off"
+          onChange={() => setUserData({ data: null, error: null })}
         />
-
-        {/* {error!==null && (
-          <p className="errorMessage">{errorMessage.type}</p>
+        {userData.error !== null && (
+          <p className="errorMessage">{userData.error}</p>
         )}
-        {error==null && !loading && (
-          <p className="hintText">{usernameHint}</p>
-        )}
-        {loading && <p className="hintText">Loading ...</p>} */}
+        {userData.error == null && <p className="hintText">{usernameHint}</p>}
       </form>
     </div>
   );
