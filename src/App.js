@@ -4,6 +4,7 @@ import Homepage from "./components/Homepage";
 import Footer from "./components/Footer";
 import ResultPage from "./components/ResultsPage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import BarGraph from "./components/Graphs/BarGraph"
 
 function App() {
   const [userData, setUserData] = useState(null);
@@ -21,7 +22,7 @@ function App() {
         </Switch>
       </Router>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

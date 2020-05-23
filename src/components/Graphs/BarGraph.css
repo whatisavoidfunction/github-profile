@@ -1,3 +1,24 @@
 .barChartContainer {
-  background-color: white;
+  background-color: rgb(241, 240, 240);
+  width: 320px;
+  min-width: 320px;
+  height: 320px;
+  min-height: 320px;
+  border-radius: 5%;
+  overflow: auto;
+}
+.barChartContainer > header {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+.barChartContainer > p {
+  text-align: end;
+  font-size: 1rem;
+}
+
+.noData {
+  text-align: center !important;
+  margin-top: 5rem;
 }

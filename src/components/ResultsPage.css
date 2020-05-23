@@ -1,7 +1,5 @@
 .MainResultPageContainer {
   background-color: rgb(19, 25, 31);
-  /* min-width: 350px; */
-  /* background-color: white; */
   height: 100vh;
 }
 .LoadingText {
@@ -10,4 +8,26 @@
   font-size: 3rem;
   color: white;
   padding-top: 45vh;
+}
+
+ .chartContainer {
+  display: flex;
+  margin-top: 2rem;
+  justify-content: center;
+}
+.chartContainer div {
+  margin: 1rem;
+}
+
+@media screen and (max-width: 690px) {
+  .chartContainer {
+      display: block;
+      
+  }
+  .chartContainer div {
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 1rem
+      
+  }
 }

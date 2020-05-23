@@ -41,13 +41,11 @@ function Homepage(props) {
           else {
             responseObject.error = errorList.GENERAL_ERROR;
           }
+          setUserData(responseObject);
         });
       })
-      .then(() => {
-        setUserData(responseObject);
-      })
       .catch(() => {
-        responseObject.error = apiErrorList[0];
+        responseObject.error = errorList.GENERAL_ERROR;
         setUserData(responseObject);
       });
   };

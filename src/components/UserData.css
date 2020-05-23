@@ -4,7 +4,7 @@
 }
 
 .userPicture {
-  padding-top: 5rem;
+  padding-top: 3rem;
 }
 
 h1 {
@@ -22,6 +22,15 @@ h2 a {
   font-size: 2rem;
   margin: 1rem 0;
   color: teal;
+  text-decoration: none;
+  border:1px solid transparent;
+  padding: 0.5rem
+
+}
+ a:hover {
+  border: 3px solid teal;
+  border-radius: 7px;
+  
 }
 
 p {
