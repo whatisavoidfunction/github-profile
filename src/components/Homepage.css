@@ -1,8 +1,9 @@
 .mainHomepageContainer {
+  background-color: rgb(19, 25, 31);
   color: white;
   fill: currentColor;
   height: 100vh;
-  min-height: 300px;
+  min-height: 400px;
 }
 
 form {

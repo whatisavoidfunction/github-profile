@@ -12,10 +12,10 @@ function Homepage() {
           rel="noopener noreferrer"
         >
           Vishal Kohli
-        </a>{" "}
-        with{" "}
-        <a target="_blank" href="https://reactjs.org" rel="noopener noreferrer">
-          React
+        </a>
+      </p>
+      <p className="subHeadingFooter">Used <a target="_blank" href="https://reactjs.org" rel="noopener noreferrer">
+        React
         </a>{" "}
         and{" "}
         <a
@@ -25,7 +25,6 @@ function Homepage() {
         >
           Chart.js
         </a>
-        .
       </p>
     </div>
   );

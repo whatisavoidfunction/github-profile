@@ -1,6 +1,8 @@
-.MainResultPageContainer {
+ .MainResultPageContainer {
   height: 100vh;
-}
+  min-height: 800px;
+  background-color: rgb(19, 25, 31);
+} 
 .LoadingText {
   text-align: center;
   margin: 0;
@@ -9,20 +11,19 @@
   padding-top: 45vh;
 }
 
- .chartContainer {
+.chartContainer {
   display: flex;
-  margin-top: 2rem;
   justify-content: center;
 }
 .chartContainer div {
   margin: 1rem;
 }
 
-@media screen and (max-width: 690px) {
+ @media screen and (max-width: 690px) {
   .chartContainer {
-      display: block;
-      background-color: rgb(19, 25, 31);
-      /* height: 100vh; */
+    background-color: rgb(19, 25, 31);
+    padding-bottom: 1rem;
+    display: block;
   }
   .chartContainer div {
       margin-left: auto;
@@ -30,4 +31,4 @@
       margin-top: 1rem
       
   } 
- }
+ } 

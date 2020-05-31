@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Homepage.css";
 import Octicon, { Octoface } from "@primer/octicons-react";
-import { withRouter, useHistory } from "react-router-dom";
 import { apiErrorList, errorList } from "./Config/ErrorList";
-const pagePathOnValidUsername = "/user?username=";
 const usernameHint = "Try 'Google'";
 
 function Homepage(props) {
-  const history = useHistory();
+  // const history = useHistory();
   const [userData, setUserData] = useState({
     data: null,
     error: null,
@@ -17,7 +15,6 @@ function Homepage(props) {
   useEffect(() => {
     if (userData.data != null) {
       props.setUserData(userData);
-      history.push(pagePathOnValidUsername + userData.data.login);
     }
   });
 
@@ -64,7 +61,7 @@ function Homepage(props) {
     }, 300);
   };
 
-  // this function is called when form is submitted-------------------------------------------
+  //   // this function is called when form is submitted-------------------------------------------
   const formSubmitted = (e) => {
     e.preventDefault();
     let usernameElement = document.getElementById("usernameInput");
@@ -92,8 +89,8 @@ function Homepage(props) {
         )}
         {userData.error == null && <p className="hintText">{usernameHint}</p>}
       </form>
+
     </div>
   );
 }
-
-export default withRouter(Homepage);
+export default Homepage

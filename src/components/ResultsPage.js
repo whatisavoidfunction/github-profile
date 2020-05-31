@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./ResultsPage.css";
 import Error from "../components/Error";
 import PieGraph from "./Graphs/PieGraph";
 import { apiErrorList, errorList } from "./Config/ErrorList";
-// import UserData from "./UserData";
+import UserData from "./UserData";
 import { useHistory } from "react-router-dom";
 import BarGraph from "./Graphs/BarGraph";
-import UserData from "./UserData";
+import queryString from 'query-string';
 
-// 1. Check if the incoming props and username data has value.
+// 1. Check if the incoming props and query param username has value.
 // 2. Make API call if user data is null and username is not empty.
 // 3. Display userdata if both username and data is avaialble
 // 4. Else display error page
 
-function Homepage(props) {
+function ResultsPage(props) {
   const history = useHistory();
   const [languageData, setLanguageData] = useState({
     data: null,
@@ -27,7 +27,6 @@ function Homepage(props) {
     data: null,
     error: null,
   });
-
 
   useEffect(() => {
     if (userData.error) {
@@ -108,9 +107,8 @@ function Homepage(props) {
   }
 
 
-
   // This method will retrieve both basic user data and repo data--
-  const retrieveBasicUserData = (usernameFieldValue) => {
+  const retrieveBasicUserData = useCallback((usernameFieldValue) => {
     let responseObject = {
       data: null,
       error: null,
@@ -145,12 +143,15 @@ function Homepage(props) {
         responseObject.error = apiErrorList[0];
         setUserData(responseObject);
       });
-  };
+  }, []);
 
   useEffect(() => {
-    //get username from query param
-    const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get("username");
+    const parsed = queryString.parse(window.location.hash);
+    let username = null;
+
+    if ("/user?username" in parsed) {
+      username = parsed["/user?username"];
+    }
 
     // Set incoming data using setUserData and call API to retrieve repolist
     if (props.userData && username && username.trim() !== "") {
@@ -171,7 +172,7 @@ function Homepage(props) {
     } else {
       setUserData({ data: null, error: errorList.GENERAL_ERROR });
     }
-  }, []);
+  }, [props.userData, retrieveBasicUserData]);
 
   return (
     <div className="MainResultPageContainer">
@@ -188,9 +189,8 @@ function Homepage(props) {
           <BarGraph starredData={starredData} />
         </div>
       }
-
     </div>
   );
 }
 
-export default Homepage;
+export default ResultsPage;

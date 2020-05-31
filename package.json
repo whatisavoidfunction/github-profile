@@ -1,5 +1,5 @@
 {
-  "homepage": "https://vishal-kohli.github.io/github-profile/",
+  "homepage": ".",
   "name": "github-profile",
   "version": "0.1.0",
   "private": true,
@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^7.1.2",
     "chart.js": "^2.9.3",
     "gh-pages": "^2.2.0",
+    "query-string": "^6.12.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",

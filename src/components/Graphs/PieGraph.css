@@ -1,11 +1,12 @@
 .pieChartContainer {
   background-color: rgb(241, 240, 240);
   width: 320px;
-  min-width: 320px;
+  /* min-width: 320px; */
   height: 320px;
-  min-height: 320px;
+  /* min-height: 320px; */
   border-radius: 5%;
   overflow: auto;
+  /* margin: 0rem; */
 }
 .pieChartContainer > header {
   margin-left: 1rem;

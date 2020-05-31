@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Chart from "chart.js";
 import "./BarGraph.css";
 import "./General.css";
-import { backgroundColor, borderColor } from "../Config/ChartColor";
+import { backgroundColor } from "../Config/ChartColor";
 import ParentChart from "../Config/ParentChart";
 
 function BarGraph({ starredData }) {
   useEffect(() => {
-    console.log(starredData)
     if (!starredData.loading && starredData.data !== null) {
       const ctx = document.getElementById("barChart").getContext("2d");
 
@@ -88,7 +87,7 @@ function BarGraph({ starredData }) {
   return (
 
     <div className="barChartContainer">
-      <header>5 Most Starred Repos</header>
+      <header>Top 5 Starred Repos</header>
 
       {starredData.loading &&
         <div className="loader"></div>

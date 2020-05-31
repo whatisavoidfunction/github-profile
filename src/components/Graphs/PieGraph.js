@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Chart from "chart.js";
 import "./PieGraph.css";
 import "./General.css";
-import {
-  backgroundColor,
-} from "../Config/ChartColor";
+import { backgroundColor } from "../Config/ChartColor";
 import ParentChart from "../Config/ParentChart";
 
 function PieGraph({ languageData, totalRepos }) {
   useEffect(() => {
-    if (!languageData.loading && languageData.data !== null) {
+    if (!languageData.b && languageData.data !== null) {
       let languageCount = [],
         languageName = [],
         backgroundColorData = [];
@@ -56,9 +54,8 @@ function PieGraph({ languageData, totalRepos }) {
     }
   });
   return (
-
     <div className="pieChartContainer">
-      <header>5 Most Used Languages</header>
+      <header>Top 5 Languages</header>
 
       {languageData.loading &&
         <div className="loader"></div>

@@ -27,14 +27,12 @@ h2 a {
   padding: 0.5rem
 
 }
- a:hover {
+ .mainUserDataContainer a:hover {
   border: 3px solid teal;
   border-radius: 7px;
-  
 }
 
 p {
-  padding-top: 1rem;
   font-size: 1.2rem;
 }
 
@@ -48,7 +46,6 @@ p {
   justify-content: space-between;
   max-width: 350px;
   margin: 0 auto;
-  padding-top: 1.5rem;
   width: 95%;
 }
 .statBox {

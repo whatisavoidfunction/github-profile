@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./UserData.css";
 
 function UserData({ userData }) {
@@ -18,7 +18,7 @@ function UserData({ userData }) {
       {userData.login && (
         <h2>
           <a href={userData.html_url} rel="noopener noreferrer" target="_blank">
-            {userData.login}
+            @{userData.login}
           </a>
         </h2>
       )}
