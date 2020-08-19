@@ -15,15 +15,16 @@ function App() {
       <HashRouter>
         <Switch>
           <Route exact path="/">
-            {userData ?
-              <Redirect
+            <Homepage setUserData={setUserData} />
+            {/* {userData ?
+              <Redirect push
                 to={{
                   pathname: "/user",
                   search: `username=${userData.data.login}`
                 }}
               />
               :
-              <Homepage setUserData={setUserData} />}
+              <Homepage setUserData={setUserData} />} */}
           </Route>
           <Route path="/user">
             <ResultsPage userData={userData} />

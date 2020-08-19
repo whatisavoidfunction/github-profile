@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./Homepage.css";
 import Octicon, { Octoface } from "@primer/octicons-react";
 import { apiErrorList, errorList } from "./Config/ErrorList";
+import { useHistory } from "react-router-dom";
 const usernameHint = "Try 'Google'";
 
+
 function Homepage(props) {
-  // const history = useHistory();
+  const history = useHistory();
   const [userData, setUserData] = useState({
     data: null,
     error: null,
@@ -15,7 +17,15 @@ function Homepage(props) {
   useEffect(() => {
     if (userData.data != null) {
       props.setUserData(userData);
+
+      if (userData.error == null) {
+        history.push("/user");
+      }
     }
+
+    // if (userData.data!=null && userData.error==null) {
+    //   history.push("/user");
+    // }
   });
 
   const retrieveBasicUserData = (usernameFieldValue) => {

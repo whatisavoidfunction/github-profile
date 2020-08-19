@@ -13,6 +13,8 @@ import queryString from 'query-string';
 // 3. Display userdata if both username and data is avaialble
 // 4. Else display error page
 
+
+
 function ResultsPage(props) {
   const history = useHistory();
   const [languageData, setLanguageData] = useState({
@@ -146,13 +148,13 @@ function ResultsPage(props) {
   }, []);
 
   useEffect(() => {
-    const parsed = queryString.parse(window.location.hash);
-    let username = null;
+    // const parsed = queryString.parse(window.location.hash);
+    // let username = null;
+    // if ("/user?username" in parsed) {
+    //   username = parsed["/user?username"];
+    // }
 
-    if ("/user?username" in parsed) {
-      username = parsed["/user?username"];
-    }
-
+    let username = props.userData.data.login;
     // Set incoming data using setUserData and call API to retrieve repolist
     if (props.userData && username && username.trim() !== "") {
       setUserData(props.userData);

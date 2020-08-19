@@ -1,3 +1,3 @@
 Created using React, React Router and Chart.js
 
-Link : vishal-kohli.github.io/github-profile
+[Link to website](http://vishal-kohli.github.io/github-profile)
